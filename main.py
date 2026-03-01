@@ -1,3 +1,4 @@
+import requests
 from fastapi import FastAPI
 from database import agent_collection, customer_collection, newspaper_collection, subsciption_collection # Custom file
 from models import AgentCreate, CustomerCreate , AddNewspaper, SubscriptionCostumerwise# Custom file
@@ -6,6 +7,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from bson import ObjectId
 
 app = FastAPI(title="PaperSetu API")
+
+@app.get("/render-ip")
+def render_ip():
+    return {"ip": requests.get("https://api.ipify.org").text}
+    print("IP address fetched successfully")
+
 
 app.add_middleware(
     CORSMiddleware,
